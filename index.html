@@ -2,11 +2,40 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FREN.FUN</title>
+    <script type="module">
+      // Simulate routing app
+      import React from 'https://cdn.skypack.dev/react';
+      import ReactDOM from 'https://cdn.skypack.dev/react-dom/client';
+      import { BrowserRouter, Routes, Route, useNavigate } from 'https://cdn.skypack.dev/react-router-dom';
+
+      function RedirectHandler() {
+        const navigate = useNavigate();
+        React.useEffect(() => {
+          const path = sessionStorage.getItem('redirect');
+          if (path) {
+            sessionStorage.removeItem('redirect');
+            navigate(path);
+          }
+        }, []);
+        return null;
+      }
+
+      function App() {
+        return React.createElement(BrowserRouter, {}, 
+          React.createElement(React.Fragment, {}, 
+            React.createElement(RedirectHandler),
+            React.createElement('h1', {}, 'FREN.FUN – Meme Coin Builder')
+          )
+        );
+      }
+
+      const root = ReactDOM.createRoot(document.getElementById('root'));
+      root.render(React.createElement(App));
+    </script>
   </head>
   <body>
     <div id="root"></div>
-    <script type="module" src="/src/App.tsx"></script>
   </body>
 </html>
